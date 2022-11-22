@@ -63,14 +63,18 @@ public class LoginServlet extends HttpServlet {
         if(employee_code != null && !employee_code.equals("") && plain_pass != null && !plain_pass.equals("")) {
         	//DB接続
             EntityManager em = DBUtil.createEntityManager();
-            
+
             //DBからpasswordSaultを持ってくる
             //String passwordSault = Employee.javaで定義したselect文を実行、変数に値を格納
-            //String passwordSault = em.createNamedQuery("getPasswordSault", Employee.class);
+            String passwordSault =  (String) em.createNativeQuery("select v_PasswordSault from  c_userinfo where v_UserCode = ?1")
+            //Employee passwordSault = em.createNamedQuery("getPasswordSault", Employee.class)
+            .setParameter(1, employee_code)
+            .getSingleResult();
+            System.out.println(passwordSault);
             //passwordという変数に平文とpepperという文字列を渡している→passwordSatltに変更する
             String password = EncryptUtil.getPasswordEncrypt(
-                    plain_pass,
-                    (String)this.getServletContext().getAttribute("pepper")
+                    plain_pass,passwordSault
+                    //(String)this.getServletContext().getAttribute("pepper")
                     );
 
             // 社員番号とパスワードが正しいかチェックする
@@ -99,9 +103,11 @@ public class LoginServlet extends HttpServlet {
         } else {
             // 認証できたらログイン状態にしてトップページへリダイレクト
             request.getSession().setAttribute("login_employee", e);
+            System.out.println("ログイン成功");
 
             request.getSession().setAttribute("flush", "ログインしました。");
             response.sendRedirect(request.getContextPath() + "/");
+
         }
     }
 

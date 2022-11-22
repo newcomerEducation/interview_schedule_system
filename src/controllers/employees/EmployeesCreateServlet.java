@@ -1,6 +1,7 @@
 package controllers.employees;
 
 import java.io.IOException;
+import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -11,6 +12,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.apache.commons.lang3.RandomStringUtils;
 
 import models.Department;
 import models.Employee;
@@ -44,11 +47,19 @@ public class EmployeesCreateServlet extends HttpServlet {
 
             e.setEmployee_code(request.getParameter("employee_code"));
             e.setEmployee_name(request.getParameter("employee_name"));
+            //パスワードソルトの発行
+            try{
+            String str = RandomStringUtils.randomAlphanumeric(16);
+            e.setPasswordSault(str);
+            }catch(Exception ex){
+            	System.out.println(ex);
+            }
+
             e.setPassword(
                     EncryptUtil.getPasswordEncrypt(
                             request.getParameter("password"),
-                            (String)this.getServletContext().getAttribute("pepper")
-                            )
+                            e.getPasswordSault()
+                          )
                     );
             e.setAdmin_flag(Integer.parseInt(request.getParameter("admin_flag")));
 
@@ -56,6 +67,23 @@ public class EmployeesCreateServlet extends HttpServlet {
             e.setCreated_at(currentTime);
             e.setUpdated_at(currentTime);
             e.setIs_deleted(0);
+            //ここからセッターを足す（暫定値を入れる、現在値が動作に与える影響はないので適当）
+            //int型→0 String型→"a" Date型→Date.valueOf("2022-11-21")
+            e.setI_TenantId(0);
+            e.setV_LastNameRuby("a");
+            e.setV_FirstName("a");
+            e.setV_v_FirstNameRuby("a");
+            e.setI_GenderId(0);
+            e.setI_Age(0);
+            e.setD_BirthDay(Date.valueOf("2022-11-21"));
+            e.setI_CountryId(0);
+            e.setD_HiredDate(Date.valueOf("2022-11-21"));
+            e.setI_Yoe(0);
+            e.setV_PostalCode("a");
+            e.setV_Address1("a");
+            e.setI_RegistId(0);
+            e.setI_LastUpdateId(0);
+
 
             // Department情報の設定
             Department department = em.find(Department.class,

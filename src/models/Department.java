@@ -53,6 +53,15 @@ public class Department {
     @Column(name = "i_ValidFlag", nullable = false)
     private Integer is_deleted;
 
+    @Column(name = "i_TenantId", nullable = false)
+    private Integer i_TenantId;
+
+ @Column(name = "i_RegistId", nullable = false)
+     private Integer i_RegistId;
+
+     @Column(name = "i_LastUpdateId", nullable = false)
+      private Integer i_LastUpdateId;
+
     public Integer getId() {
         return id;
     }
@@ -100,5 +109,29 @@ public class Department {
     public void setIs_deleted(Integer is_deleted) {
         this.is_deleted = is_deleted;
     }
+
+   public Integer getI_TenantId() {
+        return i_TenantId;
+    }
+
+    public void setI_TenantId(Integer i_TenantId) {
+        this.i_TenantId = i_TenantId;
+    }
+
+    public Integer getI_RegistId() {
+       return i_RegistId;
+  }
+
+   public void setI_RegistId(Integer i_RegistId) {
+       this.i_TenantId = i_RegistId;
+   }
+
+    public Integer getI_LastUpdateId() {
+      return i_LastUpdateId;
+  }
+
+   public void setI_LastUpdateId(Integer i_LastUpdateId) {
+       this.i_LastUpdateId = i_LastUpdateId;
+   }
 
 }

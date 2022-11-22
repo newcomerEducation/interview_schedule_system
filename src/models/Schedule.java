@@ -27,6 +27,7 @@ import javax.persistence.Table;
             query = "SELECT COUNT(s) FROM Schedule AS s"
             ),
     @NamedQuery(
+    		 //ここ多分間違ってる
             name = "getMyAllSchedules",
             query = "SELECT s FROM Schedule AS s WHERE s.employee = :employee ORDER BY s.id DESC"
             ),
@@ -39,6 +40,7 @@ import javax.persistence.Table;
 public class Schedule {
     @Id
     @Column(name = "id")
+    //ここ多分間違ってる
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
