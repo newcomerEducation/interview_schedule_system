@@ -16,17 +16,23 @@ import javax.persistence.Table;
 
 @Table(name = "c_userinfo")
 @NamedQueries({ @NamedQuery(name = "getAllEmployees", query = "SELECT e FROM Employee AS e ORDER BY e.id DESC"),
-		@NamedQuery(name = "getEmployeesCount", query = "SELECT COUNT(e) FROM Employee AS e"),
-		@NamedQuery(name = "checkRegisteredEmployeeCode", query = "SELECT COUNT(e) FROM Employee AS e WHERE e.employee_code = :employee_code"),
-		@NamedQuery(name = "checkLoginEmployeeCodeAndPassword", query = "SELECT e FROM Employee AS e WHERE e.is_deleted = 0 AND e.employee_code = :employee_code "
+		
+	@NamedQuery(name = "getEmployeesCount", query = "SELECT COUNT(e) FROM Employee AS e"),
+		
+	@NamedQuery(name = "checkRegisteredEmployeeCode", query = "SELECT COUNT(e) FROM Employee AS e WHERE e.employee_code = :employee_code"),
+		
+	@NamedQuery(name = "checkLoginEmployeeCodeAndPassword", query = "SELECT e FROM Employee AS e WHERE e.is_deleted = 0 AND e.employee_code = :employee_code "
 				+ "AND e.password = :pass"),
-		@NamedQuery(name = "getAllEmployeesNotDeleted", query = "SELECT e FROM Employee AS e WHERE e.is_deleted = 0 ORDER BY e.id DESC"),
-		@NamedQuery(name = "getAllSalesEmployeesNotDeleted", query = "SELECT e FROM Employee AS e WHERE e.is_deleted = 0 AND "
+		
+	@NamedQuery(name = "getAllEmployeesNotDeleted", query = "SELECT e FROM Employee AS e WHERE e.is_deleted = 0 ORDER BY e.id DESC"),
+		
+	@NamedQuery(name = "getAllSalesEmployeesNotDeleted", query = "SELECT e FROM Employee AS e WHERE e.is_deleted = 0 AND "
 				+ "e.department.department_name like '営業%' ORDER BY e.id DESC"),
 		// 後で変更 select v_PasswordSault from c_userinfo where v_UserCode = +
 		// '入力したユーザーコード';にしたい
 		// passwordSaultを持ってくる
-		@NamedQuery(name = "getPasswordSault", query = "SELECT e FROM Employee AS e WHERE e.is_deleted = 0 ORDER BY e.id DESC"
+		
+	@NamedQuery(name = "getPasswordSault", query = "SELECT e FROM Employee AS e WHERE e.is_deleted = 0 ORDER BY e.id DESC"
 		// query = "SELECT e.passwordSault FROM Employee e WHERE e.employee_code
 		// = :employee_code "
 		), })

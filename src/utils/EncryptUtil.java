@@ -7,7 +7,7 @@ import javax.xml.bind.DatatypeConverter;
 
 public class EncryptUtil {
 	
-	//DBからパスワードソルト持ってこれたら変える pepper->passwordSolt
+	//変数名変える pepper->passwordSolt
     public static String getPasswordEncrypt(String plain_p, String pepper) {
         String ret = "";
 

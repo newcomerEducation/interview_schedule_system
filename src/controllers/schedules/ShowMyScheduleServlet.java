@@ -66,7 +66,7 @@ public class ShowMyScheduleServlet extends HttpServlet {
         }
         //ここまで
 
-        //RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/menu/menu.jsp");
+     //   RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/menu/menu.jsp");
        RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/topPage/index.jsp");
         rd.forward(request, response);
     }
