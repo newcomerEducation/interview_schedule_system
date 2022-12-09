@@ -32,7 +32,7 @@
                 ${param.content}
             </div>
             <div id="footer">
-                by Takeshi Kurata.
+                by i.new-comer-education.
             </div>
         </div>
     </body>

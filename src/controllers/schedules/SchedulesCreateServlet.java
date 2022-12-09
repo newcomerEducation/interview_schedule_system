@@ -3,6 +3,7 @@ package controllers.schedules;
 import java.io.IOException;
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -23,227 +24,387 @@ import utils.DBUtil;
  */
 @WebServlet("/schedules/create")
 public class SchedulesCreateServlet extends HttpServlet {
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public SchedulesCreateServlet() {
-        super();
-    }
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public SchedulesCreateServlet() {
+		super();
+	}
 
-    /**
-     * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-     */
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String _token = request.getParameter("_token");
-        if(_token != null && _token.equals(request.getSession().getId())) {
-            EntityManager em = DBUtil.createEntityManager();
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		String _token = request.getParameter("_token");
+		if (_token != null && _token.equals(request.getSession().getId())) {
+			EntityManager em = DBUtil.createEntityManager();
 
-            Schedule s = new Schedule();
+			Schedule s = new Schedule();
 
-            // Employee情報の設定
-            s.setEmployee((Employee)request.getSession().getAttribute("login_employee"));
-
-           // Employee employee = em.find(Employee.class,
-              //    Integer.parseInt(request.getParameter("id"))
-            							//							);
-           // s.setEmployee(employee);
-            //User_idはログイン中のユーザーのi_UserIdを設定しなければならない（今後）
-            s.setI_UserId(10);
-
-            s.setI_TenantId(0);
-
-            s.setI_DepartmentId(1);
+			// Employee情報の設定
+			s.setEmployee((Employee) request.getSession().getAttribute("login_employee"));
 
 
-            s.setProject_title(request.getParameter("project_title"));
-            s.setPlace(request.getParameter("place"));
-           // s.setVendor(request.getParameter("vendor"));
-            s.setOrdering_company(request.getParameter("ordering_company"));
-
-            // Employee情報の設定
-            Employee sales_employee = em.find(Employee.class,
-                    Integer.parseInt(request.getParameter("sales_employee_id")));
-            s.setSales_employee(sales_employee);
-
-            Date introduce_date = new Date(System.currentTimeMillis());
-            String introduce_date_str = request.getParameter("introduce_date");
-            if(introduce_date_str != null && !introduce_date_str.equals("")) {
-                introduce_date = Date.valueOf(request.getParameter("introduce_date"));
-            }
-            s.setIntroduce_date(introduce_date);
-
-            s.setProject_overview(request.getParameter("project_overview"));
-
-            Integer number_of_interviews = null;
-            String number_of_interviews_str = request.getParameter("number_of_interviews");
-            if(number_of_interviews_str != null && !number_of_interviews_str.equals("")) {
-                number_of_interviews = Integer.parseInt(request.getParameter("number_of_interviews"));
-            }
-            s.setNumber_of_interviews(number_of_interviews);
-
-            Integer priority = null;
-            String priority_str = request.getParameter("priority");
-            if(priority_str != null && !priority_str.equals("")) {
-                priority = Integer.parseInt(request.getParameter("priority"));
-            }
-            s.setPriority(priority);
-
-           // Integer aspiration_situation = null;
-            //String aspiration_situation_str = request.getParameter("aspiration_situation");
-            //if(aspiration_situation_str != null && !aspiration_situation_str.equals("")) {
-             //   aspiration_situation = Integer.parseInt(request.getParameter("aspiration_situation"));
-           // }
-            //新版はString型なのでそのまま格納
-            s.setAspiration_situation(request.getParameter("aspiration_situation"));
-
-            s.setV_EmployeeComfirmedResultNG("a");
-
-           // s.setV_AccountingSlackLink(request.getParameter(""));
-            s.setV_AccountingSlackLink("a");
-
-           //Integer interview_situation = null;
-           // String interview_situation_str = request.getParameter("interview_situation");
-            //if(interview_situation_str != null && !interview_situation_str.equals("")) {
-             //   interview_situation = Integer.parseInt(request.getParameter("interview_situation"));
-           // }
-          //新版はString型なのでそのまま格納
-            s.setInterview_situation(request.getParameter("interview_situation"));
-
-            Integer pass_fail_status = null;
-           // String pass_fail_status_str = request.getParameter("pass_fail_status");
-            //if(pass_fail_status_str != null && !pass_fail_status_str.equals("")) {
-             //   pass_fail_status = Integer.parseInt(request.getParameter("pass_fail_status"));
-            //}
-           // s.setPass_fail_status(pass_fail_status);
-
-            Date first_interview_scheduled_date = null;
-            String first_interview_scheduled_date_str = request.getParameter("first_interview_scheduled_date");
-            if(first_interview_scheduled_date_str != null && !first_interview_scheduled_date_str.equals("")) {
-                first_interview_scheduled_date = Date.valueOf(request.getParameter("first_interview_scheduled_date"));
-            }
-            s.setFirst_interview_scheduled_date(first_interview_scheduled_date);
-
-            //Time first_interview_scheduled_time = null;
-            //String first_interview_scheduled_time_str = request.getParameter("first_interview_scheduled_time");
-            //if(first_interview_scheduled_time_str != null && !first_interview_scheduled_time_str.equals("")) {
-              //  first_interview_scheduled_time = Time.valueOf(
-                //        request.getParameter("first_interview_scheduled_time") + ":00");
-            //}
-            //s.setFirst_interview_scheduled_time(first_interview_scheduled_time);
-
-            Integer first_interview_format = null;
-          //  String first_interview_format_str = request.getParameter("first_interview_format");
-           // if(first_interview_format_str != null && !first_interview_format_str.equals("")) {
-            //    first_interview_format = Integer.parseInt(request.getParameter("first_interview_format"));
-            //}
-           // s.setFirst_interview_format(first_interview_format);
-
-            s.setFirst_interview_tool(request.getParameter("first_interview_tool"));
-            s.setFirst_interview_url(request.getParameter("first_interview_url"));
-            s.setFirst_interview_id(request.getParameter("first_interview_id"));
-            s.setFirst_interview_password(request.getParameter("first_interview_password"));
+			//ログインユーザーのIDを取得、格納
+			Employee loginEmployee = new Employee();
+			loginEmployee= s.getEmployee();
+			s.setSales_employee(loginEmployee);
+			//int id =  loginEmployee.getId();
+			//s.setSales_employee(id);
 
 
-            //足りないnull非許容の値を入れる（暫定値）
-            //int型→0 String型→"a" Date型→Date.valueOf("2022-12-11")
-            s.setI_RegistId(0);
-            s.setI_LastUpdateId(0);
+			//更新機能では非活性、登録者id
+			s.setI_RegistId( loginEmployee.getId());
+			//更新機能でidを入れる
+			s.setI_LastUpdateId(0);
+
+
+			// Employee employee = new Employee();
+
+			// Employee employee = em.find(Employee.class,
+			// employee.getId()
+			// );
+			// s.setEmployee(employee);
+			// User_idはログイン中のユーザーのi_UserIdを設定しなければならない（今後）
+			// s.setI_UserId(10);
+
+			// テナントは現状０のみ、追加開発でいじるかも
+			s.setI_TenantId(0);
+
+			// Department情報の設定
+			//Department departmentId = s.getDepartment();
+
+			// Department department = em.find(Department.class,
+			// Integer.parseInt(request.getParameter("department_id
+			// ここにemployeeのdepartmentid入れたい")));
+
+
+			s.setProject_title(request.getParameter("project_title"));
+			s.setPlace(request.getParameter("place"));
+			// s.setVendor(request.getParameter("vendor"));
+			s.setOrdering_company(request.getParameter("ordering_company"));
+			s.setV_OrderedCompany_SalesName(request.getParameter("v_OrderedCompany_SalesName"));
+
+			// Employee情報の設定
+			Employee employee = em.find(Employee.class,
+					Integer.parseInt(request.getParameter("employee_id")));
+			s.setEmployee(employee);
+			s.setDepartment(employee.getDepartment());
+			//s.setDepartment();
+
+			// Employee sales_employee = em.find(Employee.class,
+			// Integer.parseInt(request.getParameter("sales_employee_id")));
+			// s.setSales_employee(sales_employee);
+
+			Date introduce_date = new Date(System.currentTimeMillis());
+			String introduce_date_str = request.getParameter("introduce_date");
+			if (introduce_date_str != null && !introduce_date_str.equals("")) {
+				introduce_date = Date.valueOf(request.getParameter("introduce_date"));
+			}
+			s.setIntroduce_date(introduce_date);
+
+			s.setProject_overview(request.getParameter("project_overview"));
+
+			Integer number_of_interviews = null;
+			String number_of_interviews_str = request.getParameter("number_of_interviews");
+			if (number_of_interviews_str != null && !number_of_interviews_str.equals("")) {
+				number_of_interviews = Integer.parseInt(request.getParameter("number_of_interviews"));
+			}
+			s.setNumber_of_interviews(number_of_interviews);
+
+			Integer priority = null;
+			String priority_str = request.getParameter("priority");
+			if (priority_str != null && !priority_str.equals("")) {
+				priority = Integer.parseInt(request.getParameter("priority"));
+			}
+			s.setPriority(priority);
+
+			Integer aspiration_situation = null;
+			String aspiration_situation_str = request.getParameter("aspiration_situation");
+			if (aspiration_situation_str != null && !aspiration_situation_str.equals("")) {
+				aspiration_situation = Integer.parseInt(request.getParameter("aspiration_situation"));
+			}
+			s.setAspiration_situation(aspiration_situation);
+
+			s.setV_EmployeeComfirmedResultNG(request.getParameter("v_EmployeeComfirmedResultNG"));
+
+			s.setV_AccountingSlackLink(request.getParameter("v_AccountingSlackLink"));
+
+			Integer interview_situation = null;
+			String interview_situation_str = request.getParameter("interview_situation");
+			if (interview_situation_str != null && !interview_situation_str.equals("")) {
+				interview_situation = Integer.parseInt(request.getParameter("interview_situation"));
+			}
+			s.setInterview_situation(interview_situation);
+
+			Date first_interview_scheduled_date = null;
+			String first_interview_scheduled_date_str = request.getParameter("first_interview_scheduled_date");
+			if (first_interview_scheduled_date_str != null && !first_interview_scheduled_date_str.equals("")) {
+				first_interview_scheduled_date = Date.valueOf(request.getParameter("first_interview_scheduled_date"));
+			}
+			s.setFirst_interview_scheduled_date(first_interview_scheduled_date);
+
+			//だいぶ作り替えた
+			//バリデーター作成済み
+			LocalDateTime first_interview_scheduled_time = null;
+
+			if(first_interview_scheduled_date == null){
+				String firstDate = "1111-11-11";
+				String firstTime =  request.getParameter("first_interview_scheduled_time");
+				//String first_interview_scheduled_time_str = request.getParameter("first_interview_scheduled_time");
+				if (firstTime != null && !firstTime.equals("")) {
+					first_interview_scheduled_time = LocalDateTime.parse(firstDate + "T" + firstTime);
+				} //else {
+					//first_interview_scheduled_time =null;
+					//}
+			}	else if(first_interview_scheduled_date != null){
+				String firstDate = first_interview_scheduled_date.toString();
+
+				String	firstTime =  request.getParameter("first_interview_scheduled_time");
+				//String first_interview_scheduled_time_str = request.getParameter("first_interview_scheduled_time");
+			if (firstTime != null && !firstTime.equals("")) {
+				first_interview_scheduled_time = LocalDateTime.parse(firstDate + "T" + firstTime);
+					//	.valueOf(request.getParameter("first_interview_scheduled_time") + ":00");
+			}}
+			s.setFirst_interview_scheduled_time(first_interview_scheduled_time);
+
+			//String secondDate = second_interview_scheduled_date.toString();
+			//String secondTime = request.getParameter("d_SecondInterviewScheduledTime") + ":00";
+		//	String second_interview_scheduled_time_str = request.getParameter("d_SecondInterviewScheduledTime");
+			//if (second_interview_scheduled_time_str != null && !second_interview_scheduled_time_str.equals("")) {
+				//second_interview_scheduled_time = LocalDateTime.parse(secondDate + "T" + secondTime );
+				//s.setD_SecondInterviewScheduledTime(second_interview_scheduled_time);
+
+			Integer first_interview_format = null;
+			String first_interview_format_str = request.getParameter("first_interview_format");
+			if (first_interview_format_str != null && !first_interview_format_str.equals("")) {
+				first_interview_format = Integer.parseInt(request.getParameter("first_interview_format"));
+			}
+			// s.setFirst_interview_format(request.getParameter("first_interview_format"));
+			s.setFirst_interview_format(first_interview_format);
+
+			s.setFirst_interview_tool(request.getParameter("first_interview_tool"));
+			s.setFirst_interview_url(request.getParameter("first_interview_url"));
+			s.setFirst_interview_id(request.getParameter("first_interview_id"));
+			s.setFirst_interview_password(request.getParameter("first_interview_password"));
+
+			Date second_interview_scheduled_date = null;
+			String second_interview_scheduled_date_str = request.getParameter("d_SecondInterviewScheduledDate");
+			if (second_interview_scheduled_date_str != null && !second_interview_scheduled_date_str.equals("")) {
+				second_interview_scheduled_date = Date.valueOf(request.getParameter("d_SecondInterviewScheduledDate"));
+			}
+			s.setD_SecondInterviewScheduledDate(second_interview_scheduled_date);
+
+
+
+			LocalDateTime second_interview_scheduled_time = null;
+			if(second_interview_scheduled_date == null){
+				String secondDate = "1111-11-11";
+				String secondTime = request.getParameter("d_SecondInterviewScheduledTime") ;
+				//String second_interview_scheduled_time_str =  secondTime;
+				if (secondTime != null && !secondTime.equals("")) {
+					second_interview_scheduled_time = LocalDateTime.parse(secondDate + "T" + secondTime);
+				} //else {
+					//second_interview_scheduled_time = null;
+			//	}
+			} else if (second_interview_scheduled_date != null){
+
+			String secondDate = second_interview_scheduled_date.toString();
+			String secondTime = request.getParameter("d_SecondInterviewScheduledTime") ;
+			//String second_interview_scheduled_time_str =  secondTime;
+			// request.getParameter("d_SecondInterviewScheduledTime");
+			if (secondTime != null && !secondTime.equals("")) {
+				second_interview_scheduled_time = LocalDateTime.parse(secondDate + "T" + secondTime);
+				//s.setD_SecondInterviewScheduledTime(second_interview_scheduled_time);
+				//Date
+						//.valueOf
+
+						//LocalDateTime.parse(second_interview_scheduled_date + " " + request.getParameter("d_SecondInterviewScheduledTime") + ":00");
+
+			}}
+
+			//String Date = second_interview_scheduled_date.toString();
+			//LocalDateTime time = (LocalDateTime)second_interview_scheduled_time;
+			s.setD_SecondInterviewScheduledTime(second_interview_scheduled_time);
+			//s.setD_SecondInterviewScheduledTime(LocalDateTime.parse(Date));
+
+			//LocalDateTime first_interview_scheduled_time = null;
+
+			//if(first_interview_scheduled_date == null){
+			//	String firstDate = "1111-11-11";
+			//	String firstTime =  request.getParameter("first_interview_scheduled_time");
+			//	String first_interview_scheduled_time_str = request.getParameter("first_interview_scheduled_time");
+
+			//	if (first_interview_scheduled_time_str != null && !first_interview_scheduled_time_str.equals("")) {
+				////	first_interview_scheduled_time = LocalDateTime.parse(firstDate + "T" + firstTime);
+			//	} else {
+			//		first_interview_scheduled_time =null;
+				//	}
+			//}	else if(first_interview_scheduled_date != null){
+			//	String firstDate = first_interview_scheduled_date.toString();
+
+			//	String	firstTime =  request.getParameter("first_interview_scheduled_time");
+			//	String first_interview_scheduled_time_str = request.getParameter("first_interview_scheduled_time");
+			//if (first_interview_scheduled_time_str != null && !first_interview_scheduled_time_str.equals("")) {
+			//	first_interview_scheduled_time = LocalDateTime.parse(firstDate + "T" + firstTime);
+				//	.valueOf(request.getParameter("first_interview_scheduled_time") + ":00");
+			//}}
+			//s.setFirst_interview_scheduled_time(first_interview_scheduled_time);
 
 
 
 
 
 
-          //  Date first_interview_date = null;
-          //  String first_interview_date_str = request.getParameter("first_interview_date");
-          //  if(first_interview_date_str != null && !first_interview_date_str.equals("")) {
-          //      first_interview_date = Date.valueOf(request.getParameter("first_interview_date"));
-           // }
-            //s.setFirst_interview_date(first_interview_date);
 
-          //  Time first_interview_time = null;
-          //  String first_interview_time_str = request.getParameter("first_interview_time");
-          //  if(first_interview_time_str != null && !first_interview_time_str.equals("")) {
-          //      first_interview_time = Time.valueOf(request.getParameter("first_interview_time") + ":00");
-           // }
-           // s.setFirst_interview_time(first_interview_time);
 
-          //  Date second_interview_scheduled_date = null;
-          //  String second_interview_scheduled_date_str = request.getParameter("second_interview_scheduled_date");
-          //  if(second_interview_scheduled_date_str != null && !second_interview_scheduled_date_str.equals("")) {
-          //      second_interview_scheduled_date = Date.valueOf(request.getParameter("second_interview_scheduled_date"));
-          // }
-           // s.setSecond_interview_scheduled_date(second_interview_scheduled_date);
+			Integer v_SecondInterviewFormat = null;
+			String v_SecondInterviewFormat_str = request.getParameter("v_SecondInterviewFormat");
+			if (v_SecondInterviewFormat_str != null && !v_SecondInterviewFormat_str.equals("")) {
+				v_SecondInterviewFormat = Integer.parseInt(request.getParameter("v_SecondInterviewFormat"));
 
-         //   Time second_interview_scheduled_time = null;
-          //  String second_interview_scheduled_time_str = request.getParameter("second_interview_scheduled_time");
-          //  if(second_interview_scheduled_time_str != null && !second_interview_scheduled_time_str.equals("")) {
-           //     second_interview_scheduled_time = Time.valueOf(
-           //             request.getParameter("second_interview_scheduled_time") + ":00");
-          //  }
-          //  s.setSecond_interview_scheduled_time(second_interview_scheduled_time);
+				// Integer second_interview_format = null;
+				// String second_interview_format_str =
+				// request.getParameter("second_interview_format");
+				// if(second_interview_format_str != null &&
+				// !second_interview_format_str.equals("")) {
+				// second_interview_format =
+				// Integer.parseInt(request.getParameter("second_interview_format"));
+				// }
+				// s.setSecond_interview_format(second_interview_format);
+			}
 
-          //  Integer second_interview_format = null;
-          //  String second_interview_format_str = request.getParameter("second_interview_format");
-          //  if(second_interview_format_str != null && !second_interview_format_str.equals("")) {
-         //       second_interview_format = Integer.parseInt(request.getParameter("second_interview_format"));
-          //  }
-           // s.setSecond_interview_format(second_interview_format);
+			// s.setV_SecondInterviewFormat(request.getParameter("v_SecondInterviewFormat"));
+			s.setV_SecondInterviewFormat(v_SecondInterviewFormat);
 
-           // s.setSecond_interview_tool(request.getParameter("second_interview_tool"));
-            //s.setSecond_interview_url(request.getParameter("second_interview_url"));
-            //s.setSecond_interview_id(request.getParameter("second_interview_id"));
-          //  s.setSecond_interview_password(request.getParameter("second_interview_password"));
+			s.setV_SecondInterviewTool(request.getParameter("v_SecondInterviewTool"));
+			s.setV_SecondInterviewUrl(request.getParameter("v_SecondInterviewUrl"));
+			s.setV_SecondInterviewId(request.getParameter("v_SecondInterviewId"));
+			s.setV_SecondInterviewPW(request.getParameter("v_SecondInterviewPW"));
 
-         //   Date second_interview_date = null;
-         //   String second_interview_date_str = request.getParameter("second_interview_date");
-         //   if(second_interview_date_str != null && !second_interview_date_str.equals("")) {
-         //       second_interview_date = Date.valueOf(request.getParameter("second_interview_date"));
-         //   }
-           // s.setSecond_interview_date(second_interview_date);
+			s.setV_InterviewResultNG(request.getParameter("v_InterviewResultNG"));
 
-         //   Time second_interview_time = null;
-         //   String second_interview_time_str = request.getParameter("second_interview_time");
-         //   if(second_interview_time_str != null && !second_interview_time_str.equals("")) {
-         //       second_interview_time = Time.valueOf(request.getParameter("second_interview_time") + ":00");
-         //   }
-           // s.setSecond_interview_time(second_interview_time);
 
-          //  s.setSupplement(request.getParameter("supplement"));
-            Timestamp currentTime = new Timestamp(System.currentTimeMillis());
-            s.setCreated_at(currentTime);
-            s.setUpdated_at(currentTime);
-            s.setIs_deleted(0);
 
-            List<String> errors = ScheduleValidator.validate(s);
-            if(errors.size() > 0) {
+			// Date first_interview_date = null;
+			// String first_interview_date_str =
+			// request.getParameter("first_interview_date");
+			// if(first_interview_date_str != null &&
+			// !first_interview_date_str.equals("")) {
+			// first_interview_date =
+			// Date.valueOf(request.getParameter("first_interview_date"));
+			// }
+			// s.setFirst_interview_date(first_interview_date);
 
-                // 社員情報一覧表示のため社員情報テーブルのデータを取得する
-                List<Employee> employees = em.createNamedQuery("getAllSalesEmployeesNotDeleted", Employee.class)
-                        .getResultList();
-                request.setAttribute("employees", employees);
+			// Time first_interview_time = null;
+			// String first_interview_time_str =
+			// request.getParameter("first_interview_time");
+			// if(first_interview_time_str != null &&
+			// !first_interview_time_str.equals("")) {
+			// first_interview_time =
+			// Time.valueOf(request.getParameter("first_interview_time") +
+			// ":00");
+			// }
+			// s.setFirst_interview_time(first_interview_time);
 
-                em.close();
+			// Date second_interview_scheduled_date = null;
+			// String second_interview_scheduled_date_str =
+			// request.getParameter("second_interview_scheduled_date");
+			// if(second_interview_scheduled_date_str != null &&
+			// !second_interview_scheduled_date_str.equals("")) {
+			// second_interview_scheduled_date =
+			// Date.valueOf(request.getParameter("second_interview_scheduled_date"));
+			// }
+			// s.setSecond_interview_scheduled_date(second_interview_scheduled_date);
 
-                request.setAttribute("_token",request.getSession().getId());
-                request.setAttribute("schedule", s);
-                request.setAttribute("errors", errors);
+			// Time second_interview_scheduled_time = null;
+			// String second_interview_scheduled_time_str =
+			// request.getParameter("second_interview_scheduled_time");
+			// if(second_interview_scheduled_time_str != null &&
+			// !second_interview_scheduled_time_str.equals("")) {
+			// second_interview_scheduled_time = Time.valueOf(
+			// request.getParameter("second_interview_scheduled_time") + ":00");
+			// }
+			// s.setSecond_interview_scheduled_time(second_interview_scheduled_time);
 
-                RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/schedules/new.jsp");
-                rd.forward(request, response);
-            } else {
-                em.getTransaction().begin();
-                em.persist(s);
-                em.getTransaction().commit();
-                em.close();
-                request.getSession().setAttribute("flush", "登録が完了しました。");
+			// Integer second_interview_format = null;
+			// String second_interview_format_str =
+			// request.getParameter("second_interview_format");
+			// if(second_interview_format_str != null &&
+			// !second_interview_format_str.equals("")) {
+			// second_interview_format =
+			// Integer.parseInt(request.getParameter("second_interview_format"));
+			// }
+			// s.setSecond_interview_format(second_interview_format);
 
-                response.sendRedirect(request.getContextPath() + "/schedules/index");
-            }
+			// s.setSecond_interview_tool(request.getParameter("second_interview_tool"));
+			// s.setSecond_interview_url(request.getParameter("second_interview_url"));
+			// s.setSecond_interview_id(request.getParameter("second_interview_id"));
+			// s.setSecond_interview_password(request.getParameter("second_interview_password"));
 
-        }
-    }
+			// Date second_interview_date = null;
+			// String second_interview_date_str =
+			// request.getParameter("second_interview_date");
+			// if(second_interview_date_str != null &&
+			// !second_interview_date_str.equals("")) {
+			// second_interview_date =
+			// Date.valueOf(request.getParameter("second_interview_date"));
+			// }
+			// s.setSecond_interview_date(second_interview_date);
+
+			// Time second_interview_time = null;
+			// String second_interview_time_str =
+			// request.getParameter("second_interview_time");
+			// if(second_interview_time_str != null &&
+			// !second_interview_time_str.equals("")) {
+			// second_interview_time =
+			// Time.valueOf(request.getParameter("second_interview_time") +
+			// ":00");
+			// }
+			// s.setSecond_interview_time(second_interview_time);
+
+			// s.setSupplement(request.getParameter("supplement"));
+			Timestamp currentTime = new Timestamp(System.currentTimeMillis());
+			s.setCreated_at(currentTime);
+			s.setUpdated_at(currentTime);
+			s.setIs_deleted(0);
+
+			//入力確認バリデータ
+			List<String> errors = ScheduleValidator.validate(s);
+			if (errors.size() > 0) {
+
+				// 社員情報一覧表示のため社員情報テーブルのデータを取得する
+				// 一般社員のリスト取得ロジックに変更
+				List<Employee> employees = em.createNamedQuery("getAllGeneralEmployeesNotDeleted", Employee.class)
+						// List<Employee> employees =
+						// em.createNamedQuery("getAllSalesEmployeesNotDeleted",
+						// Employee.class)
+						.getResultList();
+				request.setAttribute("employees", employees);
+
+				em.close();
+
+				request.setAttribute("_token", request.getSession().getId());
+				request.setAttribute("schedule", s);
+				request.setAttribute("errors", errors);
+
+				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/schedules/new.jsp");
+				rd.forward(request, response);
+			} else {
+				em.getTransaction().begin();
+				em.persist(s);
+				em.getTransaction().commit();
+				em.close();
+				request.getSession().setAttribute("flush", "登録が完了しました。");
+
+				response.sendRedirect(request.getContextPath() + "/schedules/index");
+			}
+
+		}
+	}
 
 }

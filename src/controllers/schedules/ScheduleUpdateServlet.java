@@ -50,11 +50,11 @@ public class ScheduleUpdateServlet extends HttpServlet {
             							//							);
            // s.setEmployee(employee);
             //User_idはログイン中のユーザーのi_UserIdを設定しなければならない（今後）
-            s.setI_UserId(10);
+          //  s.setI_UserId(10);
 
             s.setI_TenantId(0);
 
-            s.setI_DepartmentId(1);
+           // s.setI_DepartmentId(1);
 
 
             s.setProject_title(request.getParameter("project_title"));
@@ -63,9 +63,9 @@ public class ScheduleUpdateServlet extends HttpServlet {
             s.setOrdering_company(request.getParameter("ordering_company"));
 
             // Employee情報の設定
-            Employee sales_employee = em.find(Employee.class,
-                    Integer.parseInt(request.getParameter("sales_employee_id")));
-            s.setSales_employee(sales_employee);
+          //  Employee sales_employee = em.find(Employee.class,
+           //         Integer.parseInt(request.getParameter("sales_employee_id")));
+          //  s.setSales_employee(sales_employee);
 
             Date introduce_date = new Date(System.currentTimeMillis());
             String introduce_date_str = request.getParameter("introduce_date");
@@ -96,7 +96,7 @@ public class ScheduleUpdateServlet extends HttpServlet {
              //   aspiration_situation = Integer.parseInt(request.getParameter("aspiration_situation"));
            // }
             //新版はString型なのでそのまま格納
-            s.setAspiration_situation(request.getParameter("aspiration_situation"));
+        //    s.setAspiration_situation(request.getParameter("aspiration_situation"));
 
             s.setV_EmployeeComfirmedResultNG("a");
 
@@ -109,7 +109,7 @@ public class ScheduleUpdateServlet extends HttpServlet {
              //   interview_situation = Integer.parseInt(request.getParameter("interview_situation"));
            // }
           //新版はString型なのでそのまま格納
-            s.setInterview_situation(request.getParameter("interview_situation"));
+       //     s.setInterview_situation(request.getParameter("interview_situation"));
 
             Integer pass_fail_status = null;
            // String pass_fail_status_str = request.getParameter("pass_fail_status");

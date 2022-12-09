@@ -1,6 +1,8 @@
 package controllers.schedules;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import javax.persistence.EntityManager;
 import javax.servlet.RequestDispatcher;
@@ -33,9 +35,27 @@ public class SchedulesShowServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         EntityManager em = DBUtil.createEntityManager();
 
+        DateTimeFormatter datetimeformatter = DateTimeFormatter.ofPattern("HH:mm");
+
         Schedule s = em.find(Schedule.class, Integer.parseInt(request.getParameter("id")));
 
+
         em.close();
+
+
+        //時間だけ切り離して別の変数としてセット
+        LocalDateTime time = s.getFirst_interview_scheduled_time();
+    	//if(time != null ){
+    	//System.out.println(time);
+    	String datetime = datetimeformatter.format(time);
+
+    	request.setAttribute("datetime",  datetime);
+
+    	 LocalDateTime secondTime = s.getD_SecondInterviewScheduledTime();
+    	 String secondDateTime = datetimeformatter.format(secondTime);
+
+    	 request.setAttribute("secondDateTime",  secondDateTime);
+
 
         request.setAttribute("schedule", s);
         request.setAttribute("_token", request.getSession().getId());

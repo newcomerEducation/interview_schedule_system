@@ -33,12 +33,12 @@ public class TopPageIndexServlet extends HttpServlet {
 
 
     	//使い方不明につきコメントアウト
-       // int page;
-       // try {
-         //   page = Integer.parseInt(request.getParameter("page"));
-       // } catch(Exception e) {
-         //   page = 1;
-       // }
+       int page;
+        try {
+           page = Integer.parseInt(request.getParameter("page"));
+        } catch(Exception e) {
+           page = 1;
+       }
 
         if(request.getSession().getAttribute("flush") != null) {
             request.setAttribute("flush", request.getSession().getAttribute("flush"));
