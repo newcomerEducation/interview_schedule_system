@@ -44,7 +44,7 @@ public class Schedule {
 	private int aspiration_situation;
 
 	// 追加
-	@Column(name = "v_EmployeeComfirmedResultNG", length = 255, nullable = false)
+	@Column(name = "v_EmployeeComfirmedResultNG")
 	private String v_EmployeeComfirmedResultNG;
 
 	// 追加
@@ -168,7 +168,7 @@ public class Schedule {
 	// private String supplement;
 
 	// 追加
-	@Column(name = "v_InterviewResultNG", length = 255)
+	@Column(name = "v_InterviewResultNG")
 	private String v_InterviewResultNG;
 
 	@Column(name = "i_RegistId", nullable = false)

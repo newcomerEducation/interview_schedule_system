@@ -192,7 +192,10 @@
                     </tbody>
                 </table>
 
-                <c:if test="${sessionScope.login_employee.id == schedule.employee.id}">
+               <%-- <c:if test="${sessionScope.login_employee.id == schedule.employee.id }">
+                    <p><a href="<c:url value='/schedules/edit?id=${schedule.id}' />">この面談予定を編集する</a></p>
+                </c:if>--%>
+                <c:if test="${sessionScope.login_employee.admin_flag == 1}">
                     <p><a href="<c:url value='/schedules/edit?id=${schedule.id}' />">この面談予定を編集する</a></p>
                 </c:if>
             </c:when>

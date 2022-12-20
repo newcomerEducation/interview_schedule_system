@@ -40,16 +40,57 @@ public class SchedulesIndexServlet extends HttpServlet {
         } catch (Exception e) {
             page = 1;
         }
+
+      //  DateTimeFormatter datetimeformatter = DateTimeFormatter.ofPattern("HH:mm");
+
         List<Schedule> schedules = em.createNamedQuery("getAllSchedules", Schedule.class)
                 .setFirstResult(15 * (page - 1))
                 .setMaxResults(15)
                 .getResultList();
+
+     // 一時面談時間
+     	//	List<String> DateTimeList = new ArrayList<String>();
+     	//	String datetime = "";
+
+     	//	for (Schedule schedule : schedules) {
+     	//		LocalDateTime time = schedule.getFirst_interview_scheduled_time();
+     	//		if (time != null) {
+     				// System.out.println(time);
+     	//			datetime = datetimeformatter.format(time);
+
+     				// request.setAttribute("datetime", datetime);
+     	//		} else if (time == null) {
+     				// datetime = "";
+     				// request.setAttribute("datetime", datetime);
+     		//	}
+     	//		DateTimeList.add(datetime);
+     	//	}
+
+     		// 二次面談時間
+     		//List<String> SecondDateTimeList = new ArrayList<String>();
+     		//String secondDatetime = "";
+
+     		//for (Schedule schedule : schedules) {
+     		//	LocalDateTime secondTime = schedule.getD_SecondInterviewScheduledTime();
+
+     		//	if (secondTime != null) {
+     				// System.out.println(time);
+     		//		secondDatetime = datetimeformatter.format(secondTime);
+
+     		//	} else if (secondTime == null) {
+     		//		// secondDatetime = "";
+     		//	}
+     		//	SecondDateTimeList.add(secondDatetime);
+     		//}
+
 
         long schedules_count = (long)em.createNamedQuery("getSchedulesCount", Long.class)
                 .getSingleResult();
 
         em.close();
 
+      //  request.setAttribute("DateTimeList", DateTimeList);
+		//request.setAttribute("SecondDateTimeList", SecondDateTimeList);
         request.setAttribute("schedules", schedules);
         request.setAttribute("schedules_count", schedules_count);
         request.setAttribute("page", page);

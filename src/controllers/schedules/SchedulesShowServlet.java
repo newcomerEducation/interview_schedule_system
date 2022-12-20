@@ -45,14 +45,19 @@ public class SchedulesShowServlet extends HttpServlet {
 
         //時間だけ切り離して別の変数としてセット
         LocalDateTime time = s.getFirst_interview_scheduled_time();
-    	//if(time != null ){
+        String  datetime ="";
+    	if(time != null ){
     	//System.out.println(time);
-    	String datetime = datetimeformatter.format(time);
+    	 datetime = datetimeformatter.format(time);
+    	}
 
     	request.setAttribute("datetime",  datetime);
 
     	 LocalDateTime secondTime = s.getD_SecondInterviewScheduledTime();
-    	 String secondDateTime = datetimeformatter.format(secondTime);
+    	 String secondDateTime = "";
+    	 if(secondTime != null){
+    		 secondDateTime =datetimeformatter.format(secondTime);
+    	 }	 //datetimeformatter.format(secondTime);
 
     	 request.setAttribute("secondDateTime",  secondDateTime);
 

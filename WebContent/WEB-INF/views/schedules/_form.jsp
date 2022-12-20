@@ -110,7 +110,7 @@
 </select>
 <br />
 <br />
-<label for="v_EmployeeComfirmedResultNG">本人面談辞退理由（必須）</label>
+<label for="v_EmployeeComfirmedResultNG">本人面談辞退理由</label>
 <br />
 <textarea name="v_EmployeeComfirmedResultNG" rows="5" cols="50">${schedule.v_EmployeeComfirmedResultNG}</textarea>
 <br />
@@ -199,20 +199,17 @@
 
 <label for="first_interview_scheduled_time">一次面談予定時間</label>
 <br />
+
 <input type="time" name="first_interview_scheduled_time"
-	 />
-	<%--  value="<fmt:formatDate value='${schedule.first_interview_scheduled_time}' pattern='HH:mm' />"--%>
+<fmt:parseDate value="${schedule.first_interview_scheduled_time }"
+	pattern="yyyy-MM-dd'T'HH:mm" var="parsedDateTime" type="both" />
+value = "<fmt:formatDate  value="${ parsedDateTime }" pattern="HH:mm" />"/>
+<%--  value="<fmt:formatDate value='${schedule.first_interview_scheduled_time}' pattern='HH:mm' />"--%>
 <br />
 <br />
 
 <label for="first_interview_format">一次面談形式</label>
 <br />
-<%--<select name="first_interview_format">
-  <option value="対面"<c:if test="${schedule.first_interview_format == '対面'}"> selected</c:if>>対面</option>
-  <option value="オンライン"<c:if test="${schedule.first_interview_format == 'オンライン'}"> selected</c:if>>オンライン</option>
-    <option value="その他"<c:if test="${schedule.first_interview_format == 'その他'}"> selected</c:if>>その他</option>
-    </select>--%>
-
 <select name="first_interview_format">
 	<option value="0"
 		<c:if test="${empty schedule.first_interview_format}"> selected</c:if>></option>
@@ -264,8 +261,10 @@
 <label for="d_SecondInterviewScheduledTime">二次面談予定時間</label>
 <br />
 <input type="time" name="d_SecondInterviewScheduledTime"
-	 />
-	<%--  value="<fmt:formatDate value='${schedule.d_SecondInterviewScheduledTime}' pattern='HH:mm' />"--%>
+<fmt:parseDate value="${schedule.d_SecondInterviewScheduledTime }"
+	pattern="yyyy-MM-dd'T'HH:mm" var="parsedDateTime2" type="both" />
+ value = "<fmt:formatDate  value="${ parsedDateTime2 }" pattern="HH:mm" />"/>
+<%--  value="<fmt:formatDate value='${schedule.d_SecondInterviewScheduledTime}' pattern='HH:mm' />"--%>
 <br />
 <br />
 
