@@ -40,7 +40,7 @@ public class Schedule {
 	private Integer i_TenantId;
 
 	// 本人面談希望
- 	@Column(name = "i_EmployeeComfirmed", length = 255, nullable = false)
+	@Column(name = "i_EmployeeComfirmed", length = 255, nullable = false)
 	private int aspiration_situation;
 
 	// 追加
@@ -52,15 +52,12 @@ public class Schedule {
 	private String v_AccountingSlackLink;
 
 	@ManyToOne
-	// 不安あり(外部キー？）
 	@JoinColumn(name = "i_EmployeeId", nullable = false)
 	private Employee employee;
 
-
 	@ManyToOne
 	@JoinColumn(name = "i_DepartmentId", nullable = false)
-	//	private Department department;
-	//@Column(name = "i_DepartmentId", nullable = false)
+
 	private Department department;
 
 	@Column(name = "v_ProjectTitle", length = 255, nullable = false)
@@ -68,21 +65,17 @@ public class Schedule {
 
 	@Column(name = "v_ProjectPlace", length = 255)
 	private String place;
-	// ??
-	// @Column(name = "vendor", length = 255)
-	// private String vendor;
+
 	// 得意先会社名
 	@Column(name = "v_OrderedCompanyName", length = 255, nullable = false)
 	private String ordering_company;
 
-
-	//外部キー
+	// 外部キー
 	@ManyToOne
-	//営業担当呼び出し
+	// 営業担当呼び出し
 	@JoinColumn(name = "i_UserId", nullable = false)
-	//@Column(name = "i_UserId", nullable = false)
+	// @Column(name = "i_UserId", nullable = false)
 	private Employee sales_employee;
-	//private Employee sales_employee;
 
 	@Column(name = "d_IntroduceDate")
 	private Date introduce_date;
@@ -97,21 +90,14 @@ public class Schedule {
 	@Column(name = "i_ProjectPriorityRank")
 	private Integer priority;
 
-	//旧バージョンInt型
-	//@Column(name = "v_InterviewSituation")
-	 //private String;
-
-
 	@Column(name = "v_InterviewSituation")
 	private int interview_situation;
-
-	//上のと同じ？
-	//@Column(name = "v_InterviewSituation")
-	//private String pass_fail_status;
 
 	@Column(name = "d_FirstInterviewScheduledDate")
 	private Date first_interview_scheduled_date;
 
+
+	//Time型→LocalDateTime型
 	@Column(name = "d_FirstInterviewScheduledTime")
 	private LocalDateTime first_interview_scheduled_time;
 
@@ -130,42 +116,28 @@ public class Schedule {
 	@Column(name = "v_FirstInterviewPW", length = 255)
 	private String first_interview_password;
 
-	// 対応なし
-	// @Column(name = "first_interview_date")
-	 //private Date first_interview_date;
+	// 変更
+	@Column(name = "d_SecondInterviewScheduledDate")
+	private Date d_SecondInterviewScheduledDate;
 
-	// 対応なし
-	 //@Column(name = "first_interview_time")
-	 //private Time first_interview_time;
-
-	// 変更なし
-	 @Column(name = "d_SecondInterviewScheduledDate")
-	 private Date d_SecondInterviewScheduledDate;
-
-	// 変更なし
-	 @Column(name = "d_SecondInterviewScheduledTime")
-	 private LocalDateTime d_SecondInterviewScheduledTime;
-	// 変更なし
-	 @Column(name = "v_SecondInterviewFormat", length = 255)
-	 private int v_SecondInterviewFormat;
-	// 変更なし
-	 @Column(name = "v_SecondInterviewTool", length = 255)
-	 private String v_SecondInterviewTool;
-	// 変更なし
-	 @Column(name = "v_SecondInterviewUrl", length = 255)
-	 private String v_SecondInterviewUrl;
-	// 変更なし
-	 @Column(name = "v_SecondInterviewId", length = 255)
-	 private String v_SecondInterviewId;
-	// 変更なし
-	 @Column(name = "v_SecondInterviewPW", length = 255)
-	 private String v_SecondInterviewPW;
-
-
-	// 対応なし
-	// @Lob
-	// @Column(name = "supplement", nullable = false)
-	// private String supplement;
+	// 変更・Time型→LocalDateTime型
+	@Column(name = "d_SecondInterviewScheduledTime")
+	private LocalDateTime d_SecondInterviewScheduledTime;
+	// 変更
+	@Column(name = "v_SecondInterviewFormat", length = 255)
+	private int v_SecondInterviewFormat;
+	// 変更
+	@Column(name = "v_SecondInterviewTool", length = 255)
+	private String v_SecondInterviewTool;
+	// 変更
+	@Column(name = "v_SecondInterviewUrl", length = 255)
+	private String v_SecondInterviewUrl;
+	// 変更
+	@Column(name = "v_SecondInterviewId", length = 255)
+	private String v_SecondInterviewId;
+	// 変更
+	@Column(name = "v_SecondInterviewPW", length = 255)
+	private String v_SecondInterviewPW;
 
 	// 追加
 	@Column(name = "v_InterviewResultNG")
@@ -186,8 +158,6 @@ public class Schedule {
 	@Column(name = "i_DeletedFlag", nullable = false)
 	private Integer is_deleted;
 
-
-
 	public Integer getId() {
 		return id;
 	}
@@ -204,14 +174,13 @@ public class Schedule {
 		this.employee = employee;
 	}
 
-
 	public Department getDepartment() {
-			return department;
-		}
+		return department;
+	}
 
-		public void setDepartment(Department department) {
-			this.department = department;
-		}
+	public void setDepartment(Department department) {
+		this.department = department;
+	}
 
 	public String getProject_title() {
 		return project_title;
@@ -229,14 +198,6 @@ public class Schedule {
 		this.place = place;
 	}
 
-	// public String getVendor() {
-	// return vendor;
-	// }
-
-	// public void setVendor(String vendor) {
-	// this.vendor = vendor;
-	// }
-
 	public String getOrdering_company() {
 		return ordering_company;
 	}
@@ -252,8 +213,6 @@ public class Schedule {
 	public void setSales_employee(Employee loginEmployee) {
 		this.sales_employee = loginEmployee;
 	}
-
-
 
 	public Date getIntroduce_date() {
 		return introduce_date;
@@ -287,31 +246,21 @@ public class Schedule {
 		this.priority = priority;
 	}
 
-	 public int getAspiration_situation() {
-	 return aspiration_situation;
-	 }
+	public int getAspiration_situation() {
+		return aspiration_situation;
+	}
 
-	 public void setAspiration_situation(int aspiration_situation) {
-	 this.aspiration_situation = aspiration_situation;
-	 }
+	public void setAspiration_situation(int aspiration_situation) {
+		this.aspiration_situation = aspiration_situation;
+	}
 
-	 public int getInterview_situation() {
-	 return interview_situation;
-	 }
+	public int getInterview_situation() {
+		return interview_situation;
+	}
 
-	 public void setInterview_situation(int interview_situation) {
-	 this.interview_situation = interview_situation;
-	 }
-
-
-	//無用の長物
-	//public Integer getPass_fail_status() {
-		//return pass_fail_status;
-	//}
-
-//	public void setPass_fail_status(Integer pass_fail_status) {
-	//	this.pass_fail_status = pass_fail_status;
-	//}
+	public void setInterview_situation(int interview_situation) {
+		this.interview_situation = interview_situation;
+	}
 
 	public Date getFirst_interview_scheduled_date() {
 		return first_interview_scheduled_date;
@@ -369,90 +318,61 @@ public class Schedule {
 		this.first_interview_password = first_interview_password;
 	}
 
+	public Date getD_SecondInterviewScheduledDate() {
+		return d_SecondInterviewScheduledDate;
+	}
 
+	public void setD_SecondInterviewScheduledDate(Date d_SecondInterviewScheduledDate) {
+		this.d_SecondInterviewScheduledDate = d_SecondInterviewScheduledDate;
+	}
 
-	 public Date getD_SecondInterviewScheduledDate() {
-	 return d_SecondInterviewScheduledDate;
-	 }
+	public LocalDateTime getD_SecondInterviewScheduledTime() {
+		return d_SecondInterviewScheduledTime;
+	}
 
-	 public void setD_SecondInterviewScheduledDate(Date
-	 d_SecondInterviewScheduledDate) {
-	 this.d_SecondInterviewScheduledDate = d_SecondInterviewScheduledDate;
-	 }
+	public void setD_SecondInterviewScheduledTime(LocalDateTime second_interview_scheduled_time) {
+		this.d_SecondInterviewScheduledTime = second_interview_scheduled_time;
+	}
 
-	 public LocalDateTime getD_SecondInterviewScheduledTime() {
-	 return d_SecondInterviewScheduledTime;
-	 }
+	public int getV_SecondInterviewFormat() {
+		return v_SecondInterviewFormat;
+	}
 
-	 public void setD_SecondInterviewScheduledTime(LocalDateTime
-	 second_interview_scheduled_time) {
-	 this.d_SecondInterviewScheduledTime = second_interview_scheduled_time;
-	 }
+	public void setV_SecondInterviewFormat(int v_SecondInterviewFormat) {
+		this.v_SecondInterviewFormat = v_SecondInterviewFormat;
+	}
 
-	 public int getV_SecondInterviewFormat() {
-	 return v_SecondInterviewFormat;
-	 }
+	public String getV_SecondInterviewTool() {
+		return v_SecondInterviewTool;
+	}
 
-	 public void setV_SecondInterviewFormat(int v_SecondInterviewFormat) {
-	 this.v_SecondInterviewFormat = v_SecondInterviewFormat;
-	 }
+	public void setV_SecondInterviewTool(String v_SecondInterviewTool) {
+		this.v_SecondInterviewTool = v_SecondInterviewTool;
+	}
 
-	 public String getV_SecondInterviewTool() {
-	 return v_SecondInterviewTool;
-	 }
+	public String getV_SecondInterviewUrl() {
+		return v_SecondInterviewUrl;
+	}
 
-	 public void setV_SecondInterviewTool(String v_SecondInterviewTool) {
-	 this.v_SecondInterviewTool = v_SecondInterviewTool;
-	 }
-
-	 public String getV_SecondInterviewUrl() {
-	 return v_SecondInterviewUrl;
-	 }
-
-	 public void setV_SecondInterviewUrl(String v_SecondInterviewUrl) {
-	 this.v_SecondInterviewUrl = v_SecondInterviewUrl;
-	 }
+	public void setV_SecondInterviewUrl(String v_SecondInterviewUrl) {
+		this.v_SecondInterviewUrl = v_SecondInterviewUrl;
+	}
 
 	public String getV_SecondInterviewId() {
-	return v_SecondInterviewId;
-	 }
+		return v_SecondInterviewId;
+	}
 
-	 public void setV_SecondInterviewId(String v_SecondInterviewId) {
-	 this.v_SecondInterviewId = v_SecondInterviewId;
-	 }
+	public void setV_SecondInterviewId(String v_SecondInterviewId) {
+		this.v_SecondInterviewId = v_SecondInterviewId;
+	}
 
-	 public String getV_SecondInterviewPW() {
-	 return v_SecondInterviewPW;
-	 }
+	public String getV_SecondInterviewPW() {
+		return v_SecondInterviewPW;
+	}
 
-	 public void setV_SecondInterviewPW(String
-	v_SecondInterviewPW) {
-	 this.v_SecondInterviewPW = v_SecondInterviewPW;
-	 }
-
-	// public Date getSecond_interview_date() {
-	// return second_interview_date;
-	// }
-
-	// public void setSecond_interview_date(Date second_interview_date) {
-	// this.second_interview_date = second_interview_date;
-	// }
-
-	// public Time getSecond_interview_time() {
-	// return second_interview_time;
-	// }
-
-	// public void setSecond_interview_time(Time second_interview_time) {
-	// this.second_interview_time = second_interview_time;
-	// }
-
-	// public String getSupplement() {
-	// return supplement;
-	// }
-
-	// public void setSupplement(String supplement) {
-	// this.supplement = supplement;
-	// }
+	public void setV_SecondInterviewPW(String v_SecondInterviewPW) {
+		this.v_SecondInterviewPW = v_SecondInterviewPW;
+	}
 
 	public Timestamp getCreated_at() {
 		return created_at;
@@ -478,17 +398,17 @@ public class Schedule {
 		this.is_deleted = is_deleted;
 	}
 
-	 public String getV_AccountingSlackLink() {
-	 return v_AccountingSlackLink;
-	 }
+	public String getV_AccountingSlackLink() {
+		return v_AccountingSlackLink;
+	}
 
-	 public void setV_AccountingSlackLink(String v_AccountingSlackLink) {
-	 this.v_AccountingSlackLink = v_AccountingSlackLink;
-	 }
+	public void setV_AccountingSlackLink(String v_AccountingSlackLink) {
+		this.v_AccountingSlackLink = v_AccountingSlackLink;
+	}
 
-	 public String getV_EmployeeComfirmedResultNG(){
-		 return v_EmployeeComfirmedResultNG;
-	 }
+	public String getV_EmployeeComfirmedResultNG() {
+		return v_EmployeeComfirmedResultNG;
+	}
 
 	public void setV_EmployeeComfirmedResultNG(String v_EmployeeComfirmedResultNG) {
 		this.v_EmployeeComfirmedResultNG = v_EmployeeComfirmedResultNG;
@@ -502,7 +422,6 @@ public class Schedule {
 	public void setI_RegistId(Integer i_RegistId) {
 		this.i_RegistId = i_RegistId;
 	}
-
 
 	public Integer getI_LastUpdateId() {
 		return i_LastUpdateId;
@@ -528,17 +447,13 @@ public class Schedule {
 		this.i_TenantId = i_TenantId;
 	}
 
-
-
-	public String getV_InterviewResultNG(){
-		 return v_InterviewResultNG;
-	 }
+	public String getV_InterviewResultNG() {
+		return v_InterviewResultNG;
+	}
 
 	public void setV_InterviewResultNG(String v_InterviewResultNG) {
 		this.v_InterviewResultNG = v_InterviewResultNG;
 
 	}
-
-// i_DepartmentId
 
 }

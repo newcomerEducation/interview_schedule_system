@@ -51,12 +51,10 @@ public class ShowMyScheduleServlet extends HttpServlet {
 				.setParameter("employee", login_employee).setFirstResult(15 * (page - 1)).setMaxResults(15)
 				.getResultList();
 
-
 		long schedules_count = (long) em.createNamedQuery("getMySchedulesCount", Long.class)
 				.setParameter("employee", login_employee).getSingleResult();
 
 		em.close();
-
 
 		request.setAttribute("schedules", schedules);
 		request.setAttribute("schedules_count", schedules_count);
@@ -68,8 +66,6 @@ public class ShowMyScheduleServlet extends HttpServlet {
 		}
 		// ここまで
 
-		// RequestDispatcher rd =
-		// request.getRequestDispatcher("/WEB-INF/views/menu/menu.jsp");
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/topPage/index.jsp");
 		rd.forward(request, response);
 	}

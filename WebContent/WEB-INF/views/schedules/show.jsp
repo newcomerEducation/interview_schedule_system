@@ -76,7 +76,7 @@
 
                         <tr>
                             <th>面談ステータス</th>
-                            <td><%--<c:out value="${schedule.interview_situation}" /> --%>
+                            <td>
                             <c:choose>
                                     <c:when test="${schedule.interview_situation == 1}">本人確認中</c:when>
                                     <c:when test="${schedule.interview_situation == 2}">面談日程調整中（1次）</c:when>
@@ -99,11 +99,10 @@
                        <tr>
                             <th>一次面談予定時間</th>
                              <td><c:out value="${datetime}" /></td>
-                             <%--<td><fmt:formatDate value="${schedule.first_interview_scheduled_time}" pattern="HH:mm" /></td>
-                        </tr> --%>
+
                         <tr>
                             <th>一次面談形式</th>
-                            <td><%-- <c:out value="${schedule.first_interview_format}" />--%>
+                            <td>
                              <c:choose>
 							<c:when test="${schedule.first_interview_format == 1}">対面</c:when>
 							<c:when test="${schedule.first_interview_format == 2}">オンライン</c:when>
@@ -135,12 +134,10 @@
                         <tr>
                             <th>二次面談予定時間</th>
                             <td><c:out value="${secondDateTime}" /></td>
-                         <%--    <td><fmt:formatDate value="${schedule.d_SecondInterviewScheduledTime}" pattern="HH:mm" /></td>
 
-                        </tr>--%>
                         <tr>
                             <th>二次面談形式</th>
-                            <td><%-- <c:out value="${schedule.v_SecondInterviewFormat}" />--%>
+                            <td>
                             <c:choose>
 							<c:when test="${schedule.v_SecondInterviewFormat == 1}">対面</c:when>
 							<c:when test="${schedule.v_SecondInterviewFormat == 2}">オンライン</c:when>
@@ -176,25 +173,12 @@
                         </tr>
 
 
-                    <%-- 表示しない   <tr>
-                            <th>登録日時</th>
-                            <td>
-                                <fmt:formatDate value="${schedule.created_at}" pattern="yyyy-MM-dd HH:mm:ss" />
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>更新日時</th>
-                            <td>
-                                <fmt:formatDate value="${schedule.updated_at}" pattern="yyyy-MM-dd HH:mm:ss" />
-                            </td>
-                        </tr>--%>
+
 
                     </tbody>
                 </table>
 
-               <%-- <c:if test="${sessionScope.login_employee.id == schedule.employee.id }">
-                    <p><a href="<c:url value='/schedules/edit?id=${schedule.id}' />">この面談予定を編集する</a></p>
-                </c:if>--%>
+
                 <c:if test="${sessionScope.login_employee.admin_flag == 1}">
                     <p><a href="<c:url value='/schedules/edit?id=${schedule.id}' />">この面談予定を編集する</a></p>
                 </c:if>

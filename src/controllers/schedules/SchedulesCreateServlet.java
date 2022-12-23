@@ -52,8 +52,6 @@ public class SchedulesCreateServlet extends HttpServlet {
 			Employee loginEmployee = new Employee();
 			loginEmployee = s.getEmployee();
 			s.setSales_employee(loginEmployee);
-			// int id = loginEmployee.getId();
-			// s.setSales_employee(id);
 
 			// 更新機能では非活性、登録者id
 			s.setI_RegistId(loginEmployee.getId());
@@ -65,7 +63,6 @@ public class SchedulesCreateServlet extends HttpServlet {
 
 			s.setProject_title(request.getParameter("project_title"));
 			s.setPlace(request.getParameter("place"));
-			// s.setVendor(request.getParameter("vendor"));
 			s.setOrdering_company(request.getParameter("ordering_company"));
 			s.setV_OrderedCompany_SalesName(request.getParameter("v_OrderedCompany_SalesName"));
 
@@ -73,7 +70,6 @@ public class SchedulesCreateServlet extends HttpServlet {
 			Employee employee = em.find(Employee.class, Integer.parseInt(request.getParameter("employee_id")));
 			s.setEmployee(employee);
 			s.setDepartment(employee.getDepartment());
-
 
 			Date introduce_date = new Date(System.currentTimeMillis());
 			String introduce_date_str = request.getParameter("introduce_date");
@@ -107,7 +103,6 @@ public class SchedulesCreateServlet extends HttpServlet {
 
 			s.setV_EmployeeComfirmedResultNG(request.getParameter("v_EmployeeComfirmedResultNG"));
 
-			//空文字（""）が渡される
 			s.setV_AccountingSlackLink(request.getParameter("v_AccountingSlackLink"));
 
 			Integer interview_situation = null;
@@ -142,12 +137,9 @@ public class SchedulesCreateServlet extends HttpServlet {
 				String firstDate = first_interview_scheduled_date.toString();
 
 				String firstTime = request.getParameter("first_interview_scheduled_time");
-				// String first_interview_scheduled_time_str =
-				// request.getParameter("first_interview_scheduled_time");
+
 				if (firstTime != null && !firstTime.equals("")) {
 					first_interview_scheduled_time = LocalDateTime.parse(firstDate + "T" + firstTime);
-					// .valueOf(request.getParameter("first_interview_scheduled_time")
-					// + ":00");
 				}
 			}
 			s.setFirst_interview_scheduled_time(first_interview_scheduled_time);
@@ -175,18 +167,15 @@ public class SchedulesCreateServlet extends HttpServlet {
 			if (second_interview_scheduled_date == null) {
 				String secondDate = "1111-11-11";
 				String secondTime = request.getParameter("d_SecondInterviewScheduledTime");
-				// String second_interview_scheduled_time_str = secondTime;
+
 				if (secondTime != null && !secondTime.equals("")) {
 					second_interview_scheduled_time = LocalDateTime.parse(secondDate + "T" + secondTime);
-				} // else {
-					// second_interview_scheduled_time = null;
-					// }
+				}
 			} else if (second_interview_scheduled_date != null) {
 
 				String secondDate = second_interview_scheduled_date.toString();
 				String secondTime = request.getParameter("d_SecondInterviewScheduledTime");
-				// String second_interview_scheduled_time_str = secondTime;
-				// request.getParameter("d_SecondInterviewScheduledTime");
+
 				if (secondTime != null && !secondTime.equals("")) {
 					second_interview_scheduled_time = LocalDateTime.parse(secondDate + "T" + secondTime);
 
@@ -221,11 +210,9 @@ public class SchedulesCreateServlet extends HttpServlet {
 			if (errors.size() > 0) {
 
 				// 社員情報一覧表示のため社員情報テーブルのデータを取得する
-				// 一般社員のリスト取得ロジックに変更
+				// 一般社員のリスト取得クエリに変更
 				List<Employee> employees = em.createNamedQuery("getAllGeneralEmployeesNotDeleted", Employee.class)
-						// List<Employee> employees =
-						// em.createNamedQuery("getAllSalesEmployeesNotDeleted",
-						// Employee.class)
+
 						.getResultList();
 				request.setAttribute("employees", employees);
 

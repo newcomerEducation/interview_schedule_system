@@ -43,11 +43,10 @@ public class SchedulesShowServlet extends HttpServlet {
         em.close();
 
 
-        //時間だけ切り離して別の変数としてセット
+        //時間だけ切り離して別の変数としてセット（もしかしたらJSPで使ってないかも）
         LocalDateTime time = s.getFirst_interview_scheduled_time();
         String  datetime ="";
     	if(time != null ){
-    	//System.out.println(time);
     	 datetime = datetimeformatter.format(time);
     	}
 
@@ -57,7 +56,7 @@ public class SchedulesShowServlet extends HttpServlet {
     	 String secondDateTime = "";
     	 if(secondTime != null){
     		 secondDateTime =datetimeformatter.format(secondTime);
-    	 }	 //datetimeformatter.format(secondTime);
+    	 }
 
     	 request.setAttribute("secondDateTime",  secondDateTime);
 

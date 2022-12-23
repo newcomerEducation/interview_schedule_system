@@ -66,12 +66,15 @@ public class LoginServlet extends HttpServlet {
 
             //DBからpasswordSaultを持ってくる
             //String passwordSault = Employee.javaで定義したselect文を実行、変数に値を格納
+
+            //本当はJPQL（NamedQuery)を使用したかったが、うまくいかなかったのでcreateNativeQueryを使っています。
+            //使おうとしていたクエリはModelのEmployee.javaに残しております。
             String passwordSault =  (String) em.createNativeQuery("select v_PasswordSault from  c_userinfo where v_UserCode = ?1")
             //Employee passwordSault = em.createNamedQuery("getPasswordSault", Employee.class)
             .setParameter(1, employee_code)
             .getSingleResult();
-            System.out.println(passwordSault);
-            //passwordという変数に平文とpepperという文字列を渡している→passwordSatltに変更する
+
+            //passwordという変数に平文と変数pepperを渡している→passwordSatltに変更済み
             String password = EncryptUtil.getPasswordEncrypt(
                     plain_pass,passwordSault
                     //(String)this.getServletContext().getAttribute("pepper")

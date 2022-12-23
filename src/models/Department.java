@@ -32,7 +32,7 @@ import javax.persistence.Table;
 })
 @Entity
 public class Department {
-	//旧バージョンのカラム名と対応するカラムのみ変更、変数名はいじってない2022/11/14中野
+	//旧バージョンのカラム名と対応するカラムのみ変更、変数名はそのまま2022/11/14中野
     @Id
     @Column(name = "i_DepartmentId")
     @GeneratedValue(strategy = GenerationType.IDENTITY)

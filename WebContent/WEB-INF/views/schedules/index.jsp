@@ -64,38 +64,25 @@
 								<c:otherwise>（未入力）</c:otherwise>
 							</c:choose>
 						</td>
-						<%--<td class="v_AccountingSlackLink"><c:out
-								value="${schedule.v_AccountingSlackLink}" /></td>
-						<td class="schedule_pass_fail_status">
-                            <c:choose>
-                                    <c:when test="${schedule.pass_fail_status == 1}">合格</c:when>
-                                    <c:when test="${schedule.pass_fail_status == 2}">不合格</c:when>
-                                    <c:otherwise>（未入力）</c:otherwise>
-                            </c:choose>
-                        </td>--%>
+
 						<td class="schedule_first_interview_scheduled_date"><fmt:formatDate
 								value='${schedule.first_interview_scheduled_date}'
 								pattern='yyyy-MM-dd' /></td>
-						<%-- 	<c:forEach var="DateTimeList" items="${DateTimeList}"
-						varStatus="status">
-						<tr class="row${status.count % 2}">--%>
+
 						<td class="schedule_first_interview_scheduled_time">
 							<%-- <c:out
 								value="${schedule.first_interview_scheduled_time}" /> --%>
 								<fmt:parseDate	value="${schedule.first_interview_scheduled_time }"
 								pattern="yyyy-MM-dd'T'HH:mm" var="parsedDateTime" type="both" />
 							<fmt:formatDate pattern="HH:mm"
-								value="${ parsedDateTime }" /> <%--<c:out
-								value="${DateTimeList}" /> --%>
+								value="${ parsedDateTime }" />
 						</td>
 
 
 
 
 
-						<%--	<c:forEach var="SecondDateTimeList" items="${SecondDateTimeList}"
-						varStatus="status">
-						<tr class="row${status.count % 2}"> --%>
+
 						<td class="schedule_second_interview_scheduled_date"><fmt:formatDate
 								value='${schedule.d_SecondInterviewScheduledDate}'
 								pattern='yyyy-MM-dd' />
@@ -110,20 +97,7 @@
 							href="<c:url value='/schedules/show?id=${schedule.id}' />">詳細を見る</a></td>
 
 
-						<%-- <c:forEach var="schedule" items="${schedules}" varStatus="status">
-					<tr class="row${status.count % 2}">--%>
-						<%-- <fmt:formatDate
-								value='${schedule.first_interview_scheduled_time}'
-								pattern='HH:mm' /></td>
-						<td class="schedule_second_interview_scheduled_date">
-                            <fmt:formatDate value='${schedule.second_interview_scheduled_date}' pattern='yyyy-MM-dd' />
-                        </td>
-                        <td class="schedule_second_interview_scheduled_time">
-                            <fmt:formatDate value='${schedule.second_interview_scheduled_time}' pattern='HH:mm' />
-                        </td>
-						<td class="schedule_action"><a
-							href="<c:url value='/schedules/show?id=${schedule.id}' />">詳細を見る</a></td>
-					</tr>--%>
+
 				</c:forEach>
 			</tbody>
 		</table>

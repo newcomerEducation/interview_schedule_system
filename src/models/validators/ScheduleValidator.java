@@ -9,6 +9,8 @@ import models.Schedule;
 
 public class ScheduleValidator {
 
+
+	//大幅に変更。詳細は000.先行開発→030.製造→面談予定登録機能_必須項目対応表を参照
 	public static List<String> validate(Schedule s) {
 		List<String> errors = new ArrayList<String>();
 

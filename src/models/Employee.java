@@ -31,18 +31,14 @@ import javax.persistence.Table;
 
 	@NamedQuery(name = "getAllGeneralEmployeesNotDeleted" , query = "SELECT e FROM Employee AS e WHERE e.is_deleted = 0 AND e.admin_flag = 0 ORDER BY e.id DESC"),
 
-
-		// 後で変更 select v_PasswordSault from c_userinfo where v_UserCode = +
-		// '入力したユーザーコード';にしたい
-		// passwordSaultを持ってくる
-
+	//ログイン時に使用したかったクエリ
 	@NamedQuery(name = "getPasswordSault", query = "SELECT e FROM Employee AS e WHERE e.is_deleted = 0 ORDER BY e.id DESC"
 		// query = "SELECT e.passwordSault FROM Employee e WHERE e.employee_code
 		// = :employee_code "
 		), })
 @Entity
 public class Employee {
-	// 旧バージョンのカラム名と対応するカラムのみ変更、変数名はいじってない2022/11/14中野
+	// 新しいDBに併せ、カラム名の変更。変数名はそのまま2022/11/14中野
 	@Id
 	@Column(name = "i_UserId")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

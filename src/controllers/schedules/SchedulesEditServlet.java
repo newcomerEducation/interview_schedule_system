@@ -45,16 +45,11 @@ public class SchedulesEditServlet extends HttpServlet {
 		// 一般社員情報取得ロジックに変更
 		em = DBUtil.createEntityManager();
 		 List<Employee> employees = em.createNamedQuery("getAllEmployeesNotDeleted", Employee.class)
-		//List<Employee> employees = em.createNamedQuery("getAllGeneralEmployeesNotDeleted", Employee.class)
-				// List<Employee> employees =
-				// em.createNamedQuery("getAllSalesEmployeesNotDeleted",
-				// Employee.class)
 				.getResultList();
 
 		em.close();
 
 		Employee login_employee = (Employee) request.getSession().getAttribute("login_employee");
-	//	if (s != null && login_employee.getId() == s.getEmployee().getId()) {
 		//当事者でないと編集できない→管理者権限がないと編集できない機能に変更
 			if (s != null && login_employee.getAdmin_flag() == 1) {
 			request.setAttribute("employees", employees);

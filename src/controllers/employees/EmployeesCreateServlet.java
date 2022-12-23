@@ -67,7 +67,7 @@ public class EmployeesCreateServlet extends HttpServlet {
             e.setCreated_at(currentTime);
             e.setUpdated_at(currentTime);
             e.setIs_deleted(0);
-            //ここからセッターを足す（暫定値を入れる、現在値が動作に与える影響はないので適当）
+            //ここからセッターを足す（暫定値を入れてある、現在値が動作に与える影響はないので適当）
             //int型→0 String型→"a" Date型→Date.valueOf("2022-11-21")
             e.setI_TenantId(0);
             e.setV_LastNameRuby("a");

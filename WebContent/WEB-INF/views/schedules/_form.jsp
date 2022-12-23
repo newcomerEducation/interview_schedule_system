@@ -32,24 +32,9 @@
 </select>
 
 
-
-<%-- <select name="sales_employee_id">
- <c:forEach var="sales_employee" items="${employees}">
-        <option value="${sales_employee.id}"<c:if test="${sales_employee.id == schedule.sales_employee.id}"> selected</c:if>>
-        ${sales_employee.employee_code} : ${sales_employee.employee_name}</option>
-    </c:forEach>
-
-</select>--%>
 <br />
 <br />
-<%-- <label for="department_id">所属部署</label><br />
-<select name="department_id">
-    <c:forEach var="department" items="${departments}">
-        <option value="${department.id}"<c:if test="${department.id == schedule.department.id}"> selected</c:if>>
-        ${department.department_code} : ${department.department_name}</option>
-    </c:forEach>
-</select>
-<br /><br />--%>
+
 
 
 <label for="place">場所（必須）</label>
@@ -124,13 +109,6 @@
 <br />
 <br />
 
-<%-- <label for="aspiration_situation">志望状況</label><br />
-<select name="aspiration_situation">
-    <option value=""<c:if test="${empty schedule.aspiration_situation}"> selected</c:if>></option>
-    <option value="1"<c:if test="${schedule.aspiration_situation == 1}"> selected</c:if>>志望する</option>
-    <option value="2"<c:if test="${schedule.aspiration_situation == 2}"> selected</c:if>>志望しない</option>
-</select>
-<br /><br />--%>
 
 <label for="interview_situation">面談ステータス（必須）</label>
 <br />
@@ -160,20 +138,6 @@
 	<option value="11"
 		<c:if test="${schedule.interview_situation == 11}"> selected</c:if>>参画日決定</option>
 
-
-
-	<%--    <option value="本人確認中"<c:if test="${schedule.interview_situation == '本人確認中'}"> selected</c:if>>本人確認中</option>
-     <option value="面談日程調整中（1次）"<c:if test="${schedule.interview_situation == '面談日程調整中（1次）'}"> selected</c:if>>面談日程調整中（1次）</option>
-    <option value="面談日程確定（1次）"<c:if test="${schedule.interview_situation == '面談日程確定（1次）'}"> selected</c:if>>面談日程確定（1次）</option>
-     <option value="面談結果待ち（1次）"<c:if test="${schedule.interview_situation == '面談結果待ち（1次）'}"> selected</c:if>>面談結果待ち（1次）</option>
-      <option value="面談日程調整中（2次）"<c:if test="${schedule.interview_situation == '面談日程調整中（2次）'}"> selected</c:if>>面談日程調整中（2次）</option>
-       <option value="面談日程確定（2次）"<c:if test="${schedule.interview_situation == '面談日程確定（2次）'}"> selected</c:if>>面談日程確定（2次）</option>
-        <option value="面談結果待ち（2次）"<c:if test="${schedule.interview_situation == '面談結果待ち（2次）'}"> selected</c:if>>面談結果待ち（2次）</option>
-         <option value="見送り"<c:if test="${schedule.interview_situation == '見送り'}"> selected</c:if>>見送り</option>
-          <option value="本人辞退"<c:if test="${schedule.interview_situation == '本人辞退'}"> selected</c:if>>本人辞退</option>
-           <option value="参画日調整中"<c:if test="${schedule.interview_situation == '参画日調整中'}"> selected</c:if>>参画日調整中</option>
-            <option value="参画日決定"<c:if test="${schedule.interview_situation == '参画日決定'}"> selected</c:if>>参画日決定</option>--%>
-
 </select>
 <br />
 <br />
@@ -182,11 +146,7 @@
 <br />
 <input type="text" name="v_AccountingSlackLink"
 	value="${schedule.v_AccountingSlackLink}" />
-<%--<select name="pass_fail_status">
-    <option value=""<c:if test="${empty schedule.pass_fail_status}"> selected</c:if>></option>
-    <option value="1"<c:if test="${schedule.pass_fail_status == 1}"> selected</c:if>>合格</option>
-    <option value="2"<c:if test="${schedule.pass_fail_status == 2}"> selected</c:if>>不合格</option>
-</select>--%>
+
 <br />
 <br />
 
@@ -281,11 +241,7 @@ value = "<fmt:formatDate  value="${ parsedDateTime }" pattern="HH:mm" />"/>
 		<c:if test="${schedule.v_SecondInterviewFormat == 3}"> selected</c:if>>その他</option>
 </select>
 
-<%--<select name="first_interview_format">
-    <option value=""<c:if test="${empty schedule.first_interview_format}"> selected</c:if>></option>
-    <option value="1"<c:if test="${schedule.first_interview_format == 1}"> selected</c:if>>対面</option>
-    <option value="2"<c:if test="${schedule.first_interview_format == 2}"> selected</c:if>>オンライン</option>
-</select>--%>
+
 <br />
 <br />
 
@@ -319,45 +275,6 @@ value = "<fmt:formatDate  value="${ parsedDateTime }" pattern="HH:mm" />"/>
 <label for="v_InterviewResultNG">見送り理由</label>
 <br />
 <textarea name="v_InterviewResultNG" rows="5" cols="50">${schedule.v_InterviewResultNG}</textarea>
-<br />
-<br />
-
-
-
-
-<br />
-<br />
-
-
-<!--
-
-
-
-<label for="second_interview_format">二次面談形式</label><br />
-<!--
-<br /><br />
-
-<label for="second_interview_tool">二次面談ツール</label><br />
-
-<br /><br />
-
-<label for="second_interview_url">二次面談URL</label><br />
-
-<br /><br />
-
-<label for="second_interview_id">二次面談ID</label><br />
-
-<br /><br />
-
-<label for="second_interview_password">二次面談パスワード</label><br />
-
-<br /><br />
-
-
-
-<label for="supplement">補足</label>-->
-<br />
-
 <br />
 <br />
 
